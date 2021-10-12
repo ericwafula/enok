@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText mPassword;
     Button loginButton;
     Button getSecretButton;
+    Button createAccountButton;
 
     LoginApi loginClient = LoginClient.getUserLoginCredentials();
 
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         mPassword = (EditText) findViewById(R.id.editTextTextPassword2);
         loginButton = (Button) findViewById(R.id.button2);
         getSecretButton = (Button) findViewById(R.id.getSecretButton);
+        createAccountButton = (Button) findViewById(R.id.signup_button);
 
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
@@ -61,6 +63,13 @@ public class LoginActivity extends AppCompatActivity {
                 getSecret();
             }
         });
+
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, CreateAccount.class));
+            }
+        });
     }
 
     public void login(){
@@ -70,16 +79,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, response.body().getTokens().getAccess(), Toast.LENGTH_SHORT).show();
                     token = response.body().getTokens().getAccess();
                 } else {
-                    Toast.makeText(LoginActivity.this, "login not correct", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, "login not correct", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onResponseNotSuccessful: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "onFailure", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "onFailure" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
 

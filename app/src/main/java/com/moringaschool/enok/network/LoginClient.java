@@ -10,7 +10,7 @@ public class LoginClient {
     public static LoginApi getUserLoginCredentials(){
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Authorization.HELP_DESK_BASE_URL)
+                .baseUrl("https://helpdeskapps.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit.create(LoginApi.class);

@@ -3,6 +3,7 @@ package com.moringaschool.enok.network;
 
 
 import com.moringaschool.enok.models.Login;
+import com.moringaschool.enok.models.Register;
 import com.moringaschool.enok.models.User;
 
 import okhttp3.ResponseBody;
@@ -22,4 +23,7 @@ public interface LoginApi {
 
     @GET("question")
     Call<ResponseBody> getProfileQuestions(@Header("Authorization") String authToken);
+
+    @POST("auth/register")
+    Call<Register> createAccount(@Body Register user);
 }
