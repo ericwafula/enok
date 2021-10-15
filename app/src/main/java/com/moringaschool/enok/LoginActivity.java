@@ -73,16 +73,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(){
-        Login login = new Login("wathomeeric@gmail.com", "testtest");
+        Login login = new Login("user@example.com", "string");
         Call<User> call = loginClient.loginUser(login);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     token = response.body().getTokens().getAccess();
+                    Toast.makeText(LoginActivity.this, "Access: " + token, Toast.LENGTH_SHORT).show();
                 } else {
 //                    Toast.makeText(LoginActivity.this, "login not correct", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onResponseNotSuccessful: " + response.message());
+                    Toast.makeText(LoginActivity.this, "Body: " + response.body().getTokens().getAccess(), Toast.LENGTH_SHORT).show();
                 }
             }
 

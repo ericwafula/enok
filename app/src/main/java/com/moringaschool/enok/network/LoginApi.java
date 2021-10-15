@@ -18,7 +18,7 @@ import retrofit2.http.POST;
 public interface LoginApi {
 
 //    @FormUrlEncoded
-    @POST("auth/login")
+    @POST("auth/login/")
     Call<User> loginUser(@Body Login login);
 
     @GET("question")
